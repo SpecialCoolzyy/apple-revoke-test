@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apple Revocation DNS Block Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .domain { margin-bottom: 10px; }
+    .status { font-weight: bold; }
+    .blocked { color: green; }
+    .notblocked { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Apple Revocation DNS Block Tester</h2>
+  <div id="results"></div>
+
+  <script>
+    const domains = [
+      "https://ocsp.apple.com",
+      "https://crl.apple.com",
+      "https://ocsp2.apple.com",
+      "https://attestation.apple.com"
+    ];
+
+    const results = document.getElementById("results");
+
+    domains.forEach(domain => {
+      const div = document.createElement("div");
+      div.className = "domain";
+      div.innerHTML = `<span>${domain}</span> – <span class="status">checking…</span>`;
+      results.appendChild(div);
+
+      fetch(domain, { mode: "no-cors", cache: "no-store" })
+        .then(() => {
+          div.querySelector(".status").textContent = "❌ Not blocked";
+          div.querySelector(".status").classList.add("notblocked");
+        })
+        .catch(() => {
+          div.querySelector(".status").textContent = "✅ Blocked";
+          div.querySelector(".status").classList.add("blocked");
+        });
+    });
+  </script>
+</body>
+</html>
