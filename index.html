@@ -12,14 +12,41 @@
 </head>
 <body>
   <h2>Apple Revocation DNS Block Tester</h2>
+  <p>This test checks whether your DNS configuration is successfully blocking Apple's certificate revocation, blacklist, and OTA-related servers.</p>
   <div id="results"></div>
 
   <script>
     const domains = [
+      // Revocation (OCSP/CRL)
       "https://ocsp.apple.com",
-      "https://crl.apple.com",
       "https://ocsp2.apple.com",
-      "https://attestation.apple.com"
+      "https://crl.apple.com",
+      "https://attestation.apple.com",
+      "https://attestation.itunes.apple.com",
+      "https://ocsp.digicert.com",
+      "https://ocsp.sectigo.com",
+      "https://crl.identrust.com",
+      "https://crl3.digicert.com",
+      "https://crl4.digicert.com",
+
+      // Blacklist / Anti-Sideload
+      "https://gdmf.apple.com",
+      "https://albert.apple.com",
+      "https://ppq.apple.com",
+      "https://gs.apple.com",
+      "https://mesu.apple.com",
+      "https://init.itunes.apple.com",
+      "https://configuration.apple.com",
+      "https://vpp.itunes.apple.com",
+      "https://ax.itunes.apple.com",
+      "https://buy.itunes.apple.com",
+
+      // OTA / MDM / Profile blocking
+      "https://deviceenrollment.apple.com",
+      "https://updates.cdn-apple.com",
+      "https://swcdn.apple.com",
+      "https://swdownload.apple.com",
+      "https://supportdownloads.apple.com"
     ];
 
     const results = document.getElementById("results");
